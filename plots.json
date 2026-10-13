@@ -1,0 +1,229 @@
+{
+  "Pelve_Sag": {
+    "slot": 1,
+    "title": "Pelve - Sagital",
+    "ylim": [
+      -20,
+      30
+    ],
+    "labels": [
+      "Posterior",
+      "Anterior"
+    ],
+    "yticks": [
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Pelve_Cor": {
+    "slot": 0,
+    "title": "Pelve - Coronal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Baixo",
+      "Cima"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Pelve_Trans": {
+    "slot": 2,
+    "title": "Pelve - Transversal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Externa",
+      "Interna"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Quadril_Sag": {
+    "slot": 4,
+    "title": "Quadril - Sagital",
+    "ylim": [
+      -20,
+      50
+    ],
+    "labels": [
+      "Extensão",
+      "Flexão"
+    ],
+    "yticks": [
+      -20,
+      -10,
+      0,
+      25,
+      50
+    ]
+  },
+  "Quadril_Cor": {
+    "slot": 3,
+    "title": "Quadril - Coronal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Abdução",
+      "Adução"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Quadril_Trans": {
+    "slot": 5,
+    "title": "Quadril - Transversal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Externa",
+      "Interna"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Joelho_Sag": {
+    "slot": 7,
+    "title": "Joelho - Sagital",
+    "ylim": [
+      -20,
+      80
+    ],
+    "labels": [
+      "Extensão",
+      "Flexão"
+    ],
+    "yticks": [
+      -20,
+      -10,
+      0,
+      20,
+      40,
+      80
+    ]
+  },
+  "Joelho_Cor": {
+    "slot": 6,
+    "title": "Joelho - Coronal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Valgo",
+      "Varo"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Joelho_trans": {
+    "slot": 8,
+    "title": "Joelho - Transversal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Externa",
+      "Interna"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Torn_Sag": {
+    "slot": 10,
+    "title": "Tornozelo - Sagital",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Planti",
+      "Dorsi"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  },
+  "Torn_Trans": {
+    "slot": 11,
+    "title": "Tornozelo - Transversal",
+    "ylim": [
+      -30,
+      30
+    ],
+    "labels": [
+      "Externa",
+      "Interna"
+    ],
+    "yticks": [
+      -30,
+      -20,
+      -10,
+      0,
+      10,
+      20,
+      30
+    ]
+  }
+}

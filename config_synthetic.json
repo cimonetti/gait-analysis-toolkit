@@ -1,0 +1,18 @@
+{
+  "nome": "Demonstração sintética",
+  "controles": [
+    {
+      "qjt": "examples/synthetic_reference_01_QJT.txt",
+      "pp": "examples/synthetic_reference_01_PP.txt",
+      "ciclos_d": 2,
+      "ciclos_e": 2
+    },
+    {
+      "qjt": "examples/synthetic_reference_02_QJT.txt",
+      "pp": "examples/synthetic_reference_02_PP.txt",
+      "ciclos_d": 2,
+      "ciclos_e": 2
+    }
+  ],
+  "origem": "Algorithmically generated. No normative meaning."
+}

@@ -1,0 +1,33 @@
+{
+  "avaliacao": {
+    "qjt": "examples/synthetic_evaluation_QJT.txt",
+    "pp": "examples/synthetic_evaluation_PP.txt",
+    "ciclos_d": 2,
+    "ciclos_e": 3,
+    "titulo": "Demonstração sintética",
+    "apoio_d": null,
+    "apoio_e": null
+  },
+  "controles": [
+    {
+      "qjt": "examples/synthetic_reference_01_QJT.txt",
+      "pp": "examples/synthetic_reference_01_PP.txt",
+      "ciclos_d": 2,
+      "ciclos_e": 2
+    },
+    {
+      "qjt": "examples/synthetic_reference_02_QJT.txt",
+      "pp": "examples/synthetic_reference_02_PP.txt",
+      "ciclos_d": 2,
+      "ciclos_e": 2
+    }
+  ],
+  "controle_dp_pelve_sag": "ambos",
+  "ciclos_individuais": true,
+  "saida": "outputs",
+  "config_graficos": "plots.json",
+  "grupos_controle": {
+    "Demonstração sintética": "config_synthetic.json"
+  },
+  "grupo_controle_padrao": "Demonstração sintética"
+}
