@@ -209,7 +209,7 @@
     "slot": 11,
     "title": "Tornozelo - Transversal",
     "ylim": [
-      -30,
+      -40,
       30
     ],
     "labels": [
@@ -217,6 +217,7 @@
       "Interna"
     ],
     "yticks": [
+      -40,
       -30,
       -20,
       -10,

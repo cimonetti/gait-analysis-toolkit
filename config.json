@@ -1,10 +1,10 @@
 {
   "avaliacao": {
-    "qjt": "examples/synthetic_evaluation_QJT.txt",
-    "pp": "examples/synthetic_evaluation_PP.txt",
-    "ciclos_d": 2,
+    "qjt": "examples/P01_001_QJT_E3D4.txt",
+    "pp": "examples/P01_001_PP_E3D4.txt",
+    "ciclos_d": 4,
     "ciclos_e": 3,
-    "titulo": "Demonstração sintética",
+    "titulo": "Exemplo P01",
     "apoio_d": null,
     "apoio_e": null
   },
