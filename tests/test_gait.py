@@ -22,12 +22,12 @@ class Gait(unittest.TestCase):
         self.assertEqual(len(curves),22)
 
     def test_exclusion_all_segments(self):
-        record={'qjt':'examples/synthetic_evaluation_QJT.txt','pp':'examples/synthetic_evaluation_PP.txt','ciclos_d':2,'ciclos_e':3}
-        curves=extract(read_txt(ROOT/record['qjt']),read_txt(ROOT/record['pp']),2,3)
+        record={'qjt':'examples/P01_001_QJT_E3D4.txt','pp':'examples/P01_001_PP_E3D4.txt','ciclos_d':4,'ciclos_e':3}
+        curves=extract(read_txt(ROOT/record['qjt']),read_txt(ROOT/record['pp']),4,3)
         removed=remover_ciclos(curves,identificar_ciclos([record]),['D1','E2'])
         for key,values in removed.items():
-            np.testing.assert_equal(values,curves[key][:,[1] if 'D_' in key else [0,2]])
-        with self.assertRaises(ValueError): remover_ciclos(curves,identificar_ciclos([record]),['D1','D2'])
+            np.testing.assert_equal(values,curves[key][:,[1,2,3] if 'D_' in key else [0,2]])
+        with self.assertRaises(ValueError): remover_ciclos(curves,identificar_ciclos([record]),['D1','D2','D3','D4'])
 
     def test_sample_statistics(self):
         mean,sd=statistics(np.tile([1.,3.],(101,1)))
