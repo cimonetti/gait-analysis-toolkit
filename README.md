@@ -2,9 +2,9 @@
 
 Python tools for reading normalized gait exports, combining trials, reviewing individual cycles and producing right/left kinematic figures with a comparison reference. The repository also retains the supplied MATLAB extraction script for method traceability.
 
-![P01 mean gait curves compared with a synthetic demonstration reference](docs/gait_comparison.png)
+![P01 mean gait curves compared with the reference used in the local workflow](docs/gait_comparison.png)
 
-Blue: right mean (4 cycles). Red: left mean (3 cycles). Grey: synthetic reference ± 1 SD, included only to demonstrate the comparison display.
+Blue: right mean (4 cycles). Red: left mean (3 cycles). Grey: reference mean ± 1 SD. This figure was supplied from the local workflow using the real comparison reference. The reference data are not included in this repository; the executable public example uses a synthetic demonstration reference and therefore produces a different grey curve and band.
 
 ## Run the included example
 
@@ -48,4 +48,4 @@ python -m unittest discover -s tests -v
 
 The tests cover column mapping, cycle exclusion, means and sample standard deviations. During portfolio preparation, the command-line example generated figures and arrays, and the Streamlit interface passed an initialization check. File-upload and mouse interactions were not tested.
 
-The evaluation example uses real recordings identified as P01, with names and local file paths removed. The comparison reference remains synthetic; original reference arrays are not distributed. P01 demonstrates the application and is not a normative control group. The demonstration reference has no normative or clinical meaning. For local data, adapt `config.json` and check that column, axis and sign conventions match your exports.
+The evaluation example uses real recordings identified as P01, with names and local file paths removed. The executable example uses a synthetic comparison reference; the README figure shows the real reference from the local workflow. Original reference arrays are not distributed. P01 demonstrates the application and is not a normative control group. The demonstration reference has no normative or clinical meaning. For local data, adapt `config.json` and check that column, axis and sign conventions match your exports.
