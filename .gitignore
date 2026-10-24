@@ -8,3 +8,9 @@ dados_controle/
 dados_controle_adulto/
 *.mat
 *.c3d
+
+dados_gdi/
+figuras/
+config_local*.json
+config_criancas.json
+config_adulto.json

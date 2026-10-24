@@ -14,6 +14,17 @@ def identificar_ciclos(provenance):
     return result
 
 
+def ciclos_incompletos(curves, identities):
+    """IDs dos ciclos com algum ponto ausente em qualquer segmento."""
+    result=[]
+    for side,rows in identities.items():
+        for r in rows:
+            if any(np.isnan(values[:,r['coluna']]).any()
+                   for key,values in curves.items() if ('D_' if side=='D' else 'E_') in key):
+                result.append(r['id'])
+    return result
+
+
 def remover_ciclos(curves, identities, excluded):
     excluded=set(excluded)
     known={r['id'] for rows in identities.values() for r in rows}
@@ -29,4 +40,8 @@ def remover_ciclos(curves, identities, excluded):
         if values.shape[1] != len(masks[side]):
             raise ValueError('Identificação dos ciclos incompatível com os dados.')
         result[key]=values[:,masks[side]].copy()
+    incompletos=sorted(set(ciclos_incompletos(curves,identities))-excluded)
+    if incompletos:
+        raise ValueError('Ciclos com pontos ausentes não podem entrar nas figuras: '+', '.join(incompletos)+
+                         '. Mantenha-os na lista de excluídos.')
     return result

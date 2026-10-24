@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -12 809 124" role="img" aria-label="CIMONETTI">
+<title>CIMONETTI</title>
+<clipPath id="c0"><rect x="-1" y="-1" width="89" height="102"/></clipPath>
+<path fill-rule="evenodd" d="M40,0 H160 A40,40 0 0 1 200,40 V60 A40,40 0 0 1 160,100 H40 A40,40 0 0 1 0,60 V40 A40,40 0 0 1 40,0 Z M40,21 H181 A19,19 0 0 1 200,40 V60 A19,19 0 0 1 181,79 H40 A19,19 0 0 1 21,60 V40 A19,19 0 0 1 40,21 Z" fill="#111820" clip-path="url(#c0)"/>
+<rect x="102" y="0" width="21" height="100" fill="#111820"/>
+<polygon points="137.00,0.00 153.49,0.00 187.00,50.90 220.51,0.00 237.00,0.00 237.00,100.00 216.00,100.00 216.00,45.04 187.00,89.10 158.00,45.04 158.00,100.00 137.00,100.00" fill="#111820"/>
+<path fill-rule="evenodd" d="M291,0 H311 A40,40 0 0 1 351,40 V60 A40,40 0 0 1 311,100 H291 A40,40 0 0 1 251,60 V40 A40,40 0 0 1 291,0 Z M291,21 H311 A19,19 0 0 1 330,40 V60 A19,19 0 0 1 311,79 H291 A19,19 0 0 1 272,60 V40 A19,19 0 0 1 291,21 Z" fill="#111820"/>
+<rect x="365" y="0" width="21" height="100" fill="#111820"/>
+<polygon points="365.00,0.00 386.00,0.00 446.00,100.00 425.00,100.00" fill="#111820"/>
+<rect x="451" y="0" width="21" height="100" fill="#111820"/>
+<polygon points="391.00,0.00 412.00,0.00 472.00,100.00 451.00,100.00" fill="#1E7FC2"/>
+<rect x="486" y="0" width="21" height="100" fill="#111820"/>
+<rect x="486" y="0" width="78" height="21" fill="#111820"/>
+<rect x="486" y="39.5" width="66" height="21" fill="#111820"/>
+<rect x="486" y="79" width="78" height="21" fill="#111820"/>
+<rect x="578" y="0" width="172" height="21" fill="#111820"/>
+<rect x="606" y="21" width="21" height="79" fill="#111820"/>
+<rect x="701" y="21" width="21" height="79" fill="#111820"/>
+<rect x="764" y="0" width="21" height="100" fill="#111820"/>
+</svg>

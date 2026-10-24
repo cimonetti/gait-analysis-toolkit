@@ -12,7 +12,7 @@ from mapping import extract
 
 ROOT = Path(__file__).resolve().parent
 
-def read_txt(path):
+def read_txt(path, permitir_ausentes=False):
     path = Path(path)
     if not path.exists() and not path.suffix:
         path = path.with_suffix('.txt')
@@ -39,17 +39,30 @@ def read_txt(path):
     data = np.asarray(rows)
     if data.shape[0] != 101:
         raise ValueError(f'{path.name}: esperado ciclo normalizado de 101 pontos, recebido {data.shape[0]}.')
-    if not np.isfinite(data).all():
+    if np.isinf(data).any() or (not permitir_ausentes and np.isnan(data).any()):
         raise ValueError(f'{path.name}: contém valores ausentes ou não finitos. Revise a exportação.')
     return data
 
-def load_record(record, base, allow_unilateral=False):
+def load_record(record, base, allow_unilateral=False, permitir_ausentes=False):
     nd, ne = record['ciclos_d'], record['ciclos_e']
     if any(isinstance(n, bool) or not isinstance(n, int) or n < (0 if allow_unilateral else 1) for n in (nd, ne)):
         raise ValueError('Informe pelo menos um ciclo inteiro de cada lado.')
     if nd + ne == 0:
         raise ValueError('Nenhum ciclo disponível.')
-    return extract(read_txt(base / record['qjt']), read_txt(base / record['pp']), nd, ne)
+    return extract(read_txt(base / record['qjt'], permitir_ausentes),
+                   read_txt(base / record['pp'], permitir_ausentes), nd, ne)
+
+def descartar_incompletos(curves):
+    """Remove, em todos os segmentos do lado, os ciclos com algum ponto ausente."""
+    result, removidos = {}, {}
+    for side in ('D', 'E'):
+        keys = [k for k in curves if side + '_' in k]
+        ok = np.all([np.isfinite(curves[k]).all(axis=0) for k in keys], axis=0)
+        removidos[side] = [f'{side}{i+1}' for i in np.flatnonzero(~ok)]
+        if not ok.any():
+            raise ValueError(f'Todos os ciclos do lado {side} têm pontos ausentes.')
+        result.update({k: curves[k][:, ok] for k in keys})
+    return result, removidos['D'] + removidos['E']
 
 def statistics(curves):
     return curves.mean(axis=1), curves.std(axis=1, ddof=1) if curves.shape[1] > 1 else np.zeros(101)
@@ -118,21 +131,48 @@ def make_figure(curves, side, plots, ref=None, stance=None, title='Avaliação',
     fig.legend(handles=legend,loc='lower center',ncol=2,fontsize=9)
     return fig
 
-def make_comparison(curves, plots, ref=None, title='Avaliação'):
-    """Médias dos ciclos mantidos por lado e referência nas mesmas escalas."""
+COR_LADO = {'D': '#1565c0', 'E': '#c62828'}
+# Condição 2 na comparação entre condições: verde (direito) e laranja (esquerdo).
+COR_LADO_2 = {'D': '#2e7d32', 'E': '#ef6c00'}
+NOME_LADO = {'D': 'direita', 'E': 'esquerda'}
+
+def make_comparison(curves, plots, ref=None, title='Avaliação', curves_b=None,
+                    nomes=('Condição 1', 'Condição 2'), lados=('D', 'E')):
+    """Médias por lado; com curves_b, a segunda condição aparece em verde/laranja.
+
+    lados=('D',) ou ('E',) gera a comparação das condições de um lado só.
+    """
     fig=make_figure(None,'D',plots,ref,None,title)
-    fig.suptitle(f'{title} — Comparação das médias',fontsize=14)
+    if curves_b is None:
+        subtitulo='Comparação das médias'
+    elif len(lados)==1:
+        subtitulo=f'{nomes[0]} × {nomes[1]} — {"Direito" if lados[0]=="D" else "Esquerdo"}'
+    else:
+        subtitulo=f'{nomes[0]} × {nomes[1]}'
+    fig.suptitle(f'{title} — {subtitulo}',fontsize=14)
+    conjuntos=[(curves,'-',nomes[0],COR_LADO)]+([(curves_b,'-',nomes[1],COR_LADO_2)] if curves_b is not None else [])
     x=np.arange(101)
     for key,spec in plots.items():
         ax=fig.axes[spec['slot']]
-        for side,color in [('D','#1565c0'),('E','#c62828')]:
-            mean=curves[key.replace('_',side+'_',1)].mean(axis=1)
-            ax.plot(x,mean,color=color,lw=1.8)
+        for dados,estilo,_,cores in conjuntos:
+            for side in lados:
+                mean=dados[key.replace('_',side+'_',1)].mean(axis=1)
+                ax.plot(x,mean,color=cores[side],lw=1.8,ls=estilo)
     for legend in list(fig.legends): legend.remove()
-    handles=[Line2D([0],[0],color='#1565c0',lw=2,label='Média direita'),
-             Line2D([0],[0],color='#c62828',lw=2,label='Média esquerda')]
+    handles=[]
+    for dados,estilo,nome,cores in conjuntos:
+        for side in lados:
+            rotulo=f'Média {NOME_LADO[side]}'+(f' — {nome}' if curves_b is not None else '')
+            handles.append(Line2D([0],[0],color=cores[side],lw=2,ls=estilo,label=rotulo))
     if ref: handles.append(Line2D([0],[0],color='.45',lw=2,label='Controle: média ± 1 DP'))
-    fig.legend(handles=handles,loc='lower center',ncol=3,fontsize=9)
+    if len(handles)>3:
+        # Colunas: condição 1 | condição 2 | controle (preenchimento por coluna).
+        fig.subplots_adjust(bottom=.105)
+        if ref: handles.insert(len(handles)-1,Line2D([],[],color='none',label=' '))
+        fig.legend(handles=handles,loc='lower center',ncol=3,fontsize=8.5,
+                   columnspacing=1.2,handlelength=2.2)
+    else:
+        fig.legend(handles=handles,loc='lower center',ncol=3,fontsize=9)
     return fig
 
 def run(config_path=ROOT/'config.json', controls_only=False, show=False):
@@ -145,7 +185,11 @@ def run(config_path=ROOT/'config.json', controls_only=False, show=False):
     if controls_only and ref is None:
         raise ValueError('Cadastre ao menos um controle.')
     record = config['avaliacao']
-    curves = None if controls_only else load_record(record, base)
+    curves = None
+    if not controls_only:
+        curves, removidos = descartar_incompletos(load_record(record, base, permitir_ausentes=True))
+        if removidos:
+            print('Ciclos com pontos ausentes excluídos: ' + ', '.join(removidos))
     out = base/config.get('saida','figuras')
     out.mkdir(parents=True, exist_ok=True)
     generated=[]
